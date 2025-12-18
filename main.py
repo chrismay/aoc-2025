@@ -1,26 +1,10 @@
 from pyspark.sql.types import IntegerType
-import math
 from pyspark.sql.functions import udf
 
 
 def main():
     """Create a Spark session, build a small DataFrame and print it."""
 
-    ex2 = """R50
-L50
-R200"""
-
-    example_data = """R50
-L68
-L130
-R48
-L5
-R160
-L55
-L1
-L99
-R14
-L82"""
     # Create Spark session (local mode)
     from pyspark.sql import SparkSession
     import pyspark.sql.functions as sf
@@ -83,7 +67,7 @@ L82"""
         int(df.where(sf.col("current_pos") == 0).count()),
     )
     print(
-        "Number of times crossed_zero",
+        "Number of times the dial touched zero",
         int(
             df 
             .select(sf.sum(sf.col("total_crosses_zero")))
@@ -97,6 +81,17 @@ L82"""
 def floordiv(a:int, b:int)->int:
     return a // b
 
+example_input = """R50
+L68
+L130
+R48
+L5
+R160
+L55
+L1
+L99
+R14
+L82"""
 
 puzzle_input = """R50
 L50
